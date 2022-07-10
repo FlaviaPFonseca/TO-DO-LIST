@@ -2,6 +2,7 @@
 *{
   margin:0;
   padding:1px;
+  box-sizing: border-box;
   font-family:Helvetica, sans-serif;
 }
 /*barra de navegação -Cabeçalho*/
@@ -52,11 +53,6 @@ nav{
     --secondary-color: rgb(153, 163, 153);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 html {
     font-size: 62.5%;
 }
@@ -156,4 +152,4 @@ body {
     font-style: italic;
     font-weight: normal;
 }
-/* Inicio da Lista de Tarefas*/
+/* Fim da Lista de Tarefas*/
