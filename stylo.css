@@ -48,108 +48,113 @@ nav{
   }
   /* Fim do Rodape*/
   /* Inicio da Lista de Tarefas*/
-  :root {
-    --primary-color: #252826;
-    --secondary-color: rgb(153, 163, 153);
-}
-
-html {
-    font-size: 62.5%;
-}
-
-body {
-       font: bold 2rem 'Open Sans', sans-serif;
-}
-
-.todo {
+  body {
+    height: 100vh;
+    background: linear-gradient(
+      90deg,
+      rgba(65, 184, 131, 1) 0%,
+      rgba(0, 212, 255, 1) 100%
+    );
     display: flex;
-    width: 50vw;
-    flex-direction: column;
     align-items: center;
-    margin: 0 auto;
-    gap: 15px;
-}
-
-.todo__title {
-    display: flex;
-    background-color: var(--secondary-color);
-    width: 100%;
-    height: 80px;
     justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    box-shadow: 1px 1px 5px var(--secondary-color);
-    font-size: 3rem;
-    color: var(--primary-color);
-}
-
-.todo__list {
+  }
+  
+  p{
     display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.todo__item{
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: bold;
+  }
+  ul{
     display: flex;
-    width: 100%;
-    height: 60px;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    box-shadow: 1px 1px 5px var(--secondary-color);
-}
-.todo__item > div {
-    width: 80%;
-}
-.todo__item:hover {
-    cursor: pointer;
-    transition: all .5s ease;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-}
-
-
-.todo__item > input[type='text'] {
+    flex-direction: column-reverse;
+    margin-bottom: 20px;
+  }
+  .header button{
+    position: absolute;
+    right: 18%;
+    margin-top: -30px;
+  }
+  .header i {
+    font-size: 22px;
+  }
+  .to-do{
+    margin-top: 40px;
+    width: 60%;
+  }
+  .textInsert{
     border: none;
-    width: 80%;
-    font: inherit;
-}
-
-.todo__item > input[type='button'],
-.todo__item > input[type='checkbox'] {
-    width: 30px;
-    height: 30px;
-    font: inherit;
-}
-
-
-.todo__item > input[type='checkbox']:checked  + div {
-    text-decoration:line-through;
-}
-
-.todo__new-item{
-    display: flex;
-    background-color: #fff59d;
-    width: 100%;
-    height: 70px;
-    justify-content: space-evenly;
-    padding: 10px 0;
-    box-shadow: 1px 1px 5px var(--secondary-color);
-    margin: 10px;
-    font: inherit;
-}
-
-.todo__new-item > input{
-    background-color: #fff59d;
-    border: none;
-    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
     outline: none;
-    font: inherit;
-}
+    width: 90%;
+  }
+  .divInsert{
+    display: flex;
+    padding: 10px;
+    background-color: lightgray;
+    border-radius: 18px;
+    box-shadow: 6px 5px 10px 0px gray;
+  }
+  button{
+    width: 10%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .bx-plus{
+    font-size: 30px;
+    margin-left: 10px;
+    background-color: rgb(139,14,223);
+    border-radius: 50%;
+    padding: 5px;
+    color: black;
+  }
+  .divLi{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: lightgray;
+    border-radius: 10px;
+    box-shadow: 6px 5px 10px 0px gray;
+  }
+  .divLi span {
+    width: 80%;
+    color: dimgray;
+  }
+  .divLi input {
+    width: 10%;
+    outline: none;
+    accent-color: currentcolor;
+  }
+  .divLi i {
+    font-size: 22px;
+    color: brown;
+  }
 
-.todo__new-item > input::placeholder {
-    font-style: italic;
-    font-weight: normal;
+
+ li{
+  list-style-type: none;
+ }
+  .line-through {
+text-decoration: line-through;
+@media (max-width:775px) {
+  input{
+  width:70%
+  }
+  .divInsert button {
+    width:30%;
+  }
+  i {
+    font-size:30px;
+    padding:0px;
+  }
+  p{
+    font-size:x-large;
+  }
 }
+  }
 /* Fim da Lista de Tarefas*/
