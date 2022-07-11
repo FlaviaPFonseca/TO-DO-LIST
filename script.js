@@ -1,71 +1,132 @@
-'use strict';
 
-const getBanco = () => JSON.parse(localStorage.getItem ('todoList')) ?? [];
-const setBanco = (banco) => localStorage.setItem ('todoList', JSON.stringify(banco));
 
-const criarItem = (text, status, indice) => {
-    const item = document.createElement('label');
-    item.classList.add('todo__item');
-    item.innerHTML = `
-        <input type="checkbox" ${status} data-indice=${indice}>
-        <div>${text}</div>
-        <input type="button" value="X" data-indice=${indice}>
-    `;
-    document.getElementById('todoList').appendChild(item);
-}
 
-const limparTarefas = () => { /* todoList é usuario pai*/ 
-    const todoList = document.getElementById('todoList');
-    while (todoList.firstChild) {
-        todoList.removeChild(todoList.lastChild);
+const inputElement = document.querySelector(".new-task-input");
+const addTaskButton = document.querySelector(".new-task-button");
+
+const tasksContainer = document.querySelector(".tasks-container");
+
+const validateInput = () => inputElement.value.trim().length > 0;
+
+const handleAddTask = () => {
+  const inputIsValid = validateInput();
+
+  console.log(inputIsValid);
+
+  if (!inputIsValid) {
+    return inputElement.classList.add("error");
+  }
+
+  const taskItemContainer = document.createElement("div");
+  taskItemContainer.classList.add("task-item");
+
+  const taskContent = document.createElement("p");
+  taskContent.innerText = inputElement.value;
+
+  taskContent.addEventListener("click", () => handleClick(taskContent));
+
+  const deleteItem = document.createElement("i");
+  deleteItem.classList.add("far");
+  deleteItem.classList.add("fa-trash-alt");
+
+  deleteItem.addEventListener("click", () =>
+    handleDeleteClick(taskItemContainer, taskContent)
+  );
+
+  taskItemContainer.appendChild(taskContent);
+  taskItemContainer.appendChild(deleteItem);
+
+  tasksContainer.appendChild(taskItemContainer);
+
+  inputElement.value = "";
+
+  updateLocalStorage();
+};
+
+const handleClick = (taskContent) => {
+  const tasks = tasksContainer.childNodes;
+
+  for (const task of tasks) {
+    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
+
+    if (currentTaskIsBeingClicked) {
+      task.firstChild.classList.toggle("completed");
     }
-}
+  }
 
-const atualizarTela = () => {
-    limparTarefas();
-    const banco = getBanco(); 
-    banco.forEach ( (item, indice) => criarItem (item.tarefa, item.status, indice));
-}
+  updateLocalStorage();
+};
 
-const inserirItem = (evento) => {
-    const tecla = evento.key;
-    const texto = evento.target.value;
-    if (tecla === 'Enter'){
-        const banco = getBanco();
-        banco.push ({'tarefa': texto, 'status': ''});
-        setBanco(banco);
-        atualizarTela();
-        evento.target.value = '';
+const handleDeleteClick = (taskItemContainer, taskContent) => {
+  const tasks = tasksContainer.childNodes;
+
+  for (const task of tasks) {
+    const currentTaskIsBeingClicked = task.firstChild.isSameNode(taskContent);
+
+    if (currentTaskIsBeingClicked) {
+      taskItemContainer.remove();
     }
+  }
+
+  updateLocalStorage();
 };
 
-const removerItem = (indice) => {
-    const banco = getBanco();
-    banco.splice (indice, 1);
-    setBanco(banco);
-    atualizarTela();
+const handleInputChange = () => {
+  const inputIsValid = validateInput();
+
+  if (inputIsValid) {
+    return inputElement.classList.remove("error");
+  }
 };
 
-const atualizarItem = (indice) => { /* regra do checkbox*/
-    const banco = getBanco();
-    banco[indice].status = banco[indice].status === '' ? 'checked' : '';
-    setBanco(banco);
-    atualizarTela();
+const updateLocalStorage = () => {
+  const tasks = tasksContainer.childNodes;
+
+  const localStorageTasks = [...tasks].map((task) => {
+    const content = task.firstChild;
+    const isCompleted = content.classList.contains("completed");
+
+    return { description: content.innerText, isCompleted };
+  });
+
+  localStorage.setItem("tasks", JSON.stringify(localStorageTasks));
 };
 
-const clickItem = (evento) => {
-    const elemento = evento.target;
-    /*console.log (elemento.type);*/
-    if (elemento.type === 'button') {
-        const indice = elemento.dataset.indice;
-        removerItem (indice);
-    }else if (elemento.type === 'checkbox') {
-        const indice = elemento.dataset.indice;
-        atualizarItem (indice);
+const refreshTasksUsingLocalStorage = () => {
+  const tasksFromLocalStorage = JSON.parse(localStorage.getItem("tasks"));
+
+  if (!tasksFromLocalStorage) return;
+
+  for (const task of tasksFromLocalStorage) {
+    const taskItemContainer = document.createElement("div");
+    taskItemContainer.classList.add("task-item");
+
+    const taskContent = document.createElement("p");
+    taskContent.innerText = task.description;
+
+    if (task.isCompleted) {
+      taskContent.classList.add("completed");
     }
+
+    taskContent.addEventListener("click", () => handleClick(taskContent));
+
+    const deleteItem = document.createElement("i");
+    deleteItem.classList.add("far");
+    deleteItem.classList.add("fa-trash-alt");
+
+    deleteItem.addEventListener("click", () =>
+      handleDeleteClick(taskItemContainer, taskContent)
+    );
+
+    taskItemContainer.appendChild(taskContent);
+    taskItemContainer.appendChild(deleteItem);
+
+    tasksContainer.appendChild(taskItemContainer);
+  }
 };
 
-document.getElementById('newItem').addEventListener('keypress', inserirItem);
-document.getElementById('todoList').addEventListener('click', clickItem);
+refreshTasksUsingLocalStorage();
 
-atualizarTela();
+addTaskButton.addEventListener("click", () => handleAddTask());
+
+inputElement.addEventListener("change", () => handleInputChange());
