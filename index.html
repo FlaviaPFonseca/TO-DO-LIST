@@ -5,38 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
     <link rel="stylesheet" href="stylo.css" />
   </head>
+
   <body>
-    <nav>
-      <a href="#" id="logo"> Treino de Sugestão</a>
-      <ul id="menu">
-        <li class="item"><a href="#">HOME</a></li>
-        <li class="item"><a href="#">PROJETOS</a></li>
-        <li class="item"><a href="#">SOBRE</a></li>
-        <li class="item"><a href="#">CONTATO</a></li>
-      </ul>
-    </nav>
-    <div class="todo">
-      <div class="todo__title">
-          TO DO - LIST
+      <div>
+    <div class="to-do">
+      <div class="header">
+        <p>TO-DO-LIST</p>
+        <button><i class="bx bxs-trash-alt"></i></button>
       </div>
+      <hr/>
+      <br/>
+      <div class="divInsert">
+        <input class="textInsert" type="text"/>
+          <button><i class="bx bx-plus"></i></button> 
+      </div>
+      <ul></ul>
+    </div>
+   
+  </body>
 
-      <div class="todo__list" id='todoList'>
-          
-      </div>
-
-      <div class="todo__new-item">
-          <div>&and;</div>
-          <input type="text" placeholder="Digite e pressione enter para adicionar a tarefa">
-          <div>&and;</div>
-      </div>
-  </div>
-    <script src="script.js"></script>
+  <script
+  src="https://kit.fontawesome.com/f9e19193d6.js"
+  crossorigin="anonymous"></script>
+  <script src="script2.js"></script>
     <footer>
       <h5 class="centralize">@Criado por Flavia P.Foneca</h5>
-      <h6>Repositório público</h6>
-      <h6>https://github.com/FlaviaPFonseca/TO-DO-LIST</h6>
+      <h6>Repositório público https://github.com/FlaviaPFonseca/TO-DO-LIST</h6>
+
     </footer>
-  </body>
 </html>
